@@ -37,29 +37,38 @@
       </div>
 
       <div class="user-actions">
-        <button @click="openDropdown" class="register-button">REGISTER NOW</button>
+        <button @click="scrollToRegister" class="register-button">REGISTER NOW</button>
         <div v-if="isDropdownOpen || isPopupOpen" :class="{ 'dropdown': isDropdownOpen, 'user-dropdown': isPopupOpen }">
           <button v-if="isDropdownOpen" @click="showPopup">Login</button>
-          <!-- Add other dropdown items if needed -->
         </div>
         <img src="@/assets/people-icon.png" alt="User Icon" @click="openDropdown" class="user-icon" />
       </div>
        
       <!-- Popup for Login -->
       <div v-if="isPopupOpen" class="popup">
-       <p>Popup Content for Login</p>
-       <!-- Add your login form or content here -->
-       <button @click="closePopup">Close</button>
+       <div>
+        <button @click="closePopup" class="close-btn">&times;</button>
+       </div>
+       <p>Login</p>
+       <form @submit.prevent="submitForm" class="registration-form">
+        <div class="form-group">
+          <input type="email" v-model="formData.email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <input type="password" v-model="formData.password" placeholder="Password" required />
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="submit-login-button">Login</button>
+        </div>
+       </form>
       </div>
     </div>
 
     <div class="first-container">
-      <!-- Left side content with picture -->
       <div class="left-content">
         <img src="@/assets/logomark.png" alt="Logomark" class="logomark" />
       </div>
-
-      <!-- Right side content -->
       <div class="right-content">
         <div class="title-container">
           <h1>TRADING TANGO</h1>
@@ -154,10 +163,119 @@
       </div>
     </div>
 
+    <div class="fifth-container">
+      <div class="fifth-container-content-container">
+        <p>3 Easy Steps to Refer</p>
+        <div class="fifth-container-step">
+          <div class="fifth-container-first-step"><p>Create an account with <br> BlackWell Global & log in to <br> the Client Portal.</p></div>
+          <div class="fifth-container-arrow">></div>
+          <div class="fifth-container-second-step"><p>Under the "Promotion" tab, <br> copy your unique referral link <br> & send it to your referee, or <br> get your referee to scan your <br> unique QR code to create an <br> account with us.</p></div>
+          <div class="fifth-container-arrow">></div>
+          <div class="fifth-container-third-step"><p>Monitor your referees in the <br> Referral Activity section to <br> track whether you've fulfilled <br> the requirements for various <br> rewards!</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="register-container">
+      <h3>Register Now</h3>
+      <div>
+        <form @submit.prevent="submitForm" class="registration-form">
+          <div class="form-group">
+            <input type="text" v-model="formData.firstName" placeholder="First Name" required />
+            <span v-if="formData.firstName.$error" class="error-message">First Name is required</span>
+          </div>
+          <div class="form-group">
+            <input type="text" v-model="formData.lastName" placeholder="Last Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" v-model="formData.email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <div class="country-group">
+              <select v-model="formData.country" required>
+                <option value="" disabled selected>Country</option>
+                <option value="+60">+60 Malaysia</option>
+                <option value="+65">+65 Singapore</option>
+              </select>
+              <input type="tel" v-model="formData.phone" placeholder="Phone" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" v-model="formData.password" placeholder="Password" required />
+          </div>
+          <div class="form-group">
+            <input type="password" v-model="formData.confirmPassword" placeholder="Confirm Password" required />
+          </div>
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="checkbox1" v-model="formData.checkbox1" required />
+              <label for="checkbox1">I confirm that I am at least 18 years old.</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="checkbox2" v-model="formData.checkbox2" required />
+              <label for="checkbox2">By joining and participating in the Competition, I acknowdledge and confirm that I have read, understood and agreed to be bound by the <a href="/terms-and-conditions">Terms & conditions</a> of the Competition.</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="statement-group">
+              <label>This site is protected by reCAPTCHA and the Google <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms-of-service">Terms of Service</a> apply.</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="submit-register-button">Register Now</button>
+          </div>
+        </form>
+        <div class="form-group">
+          <div class="button-group">
+            <button class="signup-facebook-button">Signup by Facebook</button>
+            <button class="signup-google-button">Signup by Google</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trading-guide-container">
+      <h2>Trading Guides</h2>
+      <div class="slideshow-container">
+        <div class="slide">
+          <img src="@/assets/guides_01.png" alt="Slide 1" />
+          <p>Forex For Beginners</p>
+        </div>
+        <div class="slide">
+          <img src="@/assets/guides_02.png" alt="Slide 2" />
+          <p>Analysing Made Easy</p>
+        </div>
+        <div class="slide">
+          <img src="@/assets/guides_03.png" alt="Slide 3" />
+          <p>CFDs Starter Kit</p>
+        </div>
+        <button class="prev" @click="prevSlide">&#10094;</button>
+        <button class="next" @click="nextSlide">&#10095;</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div>
+          <p>LOG IN TO MT4 DESKTOP APP</p>
+          <button @click="downloadPlatform" class="download-platform-button">Download Platform</button>
+        </div>
+        <div>
+          <p>LOG IN VIA MT4 MOBILE APP</p>
+          <button class="app-store-button" onclick="window.location.href='https:/apps.apple.com/'"></button>
+          <button class="play-store-button" onclick="window.location.href='https:/play.google.com/'"></button>
+        </div>
+      </div>
+    </footer>
+
+    <button @click="scrollToTop" class="scroll-to-top-button">^</button>
   </div>
 </template>
 
 <script>
+import { required, email, sameAs } from '@vuelidate/validators';
 
 export default {
   components: {
@@ -166,23 +284,100 @@ export default {
     return {
       isDropdownOpen: false,
       isPopupOpen: false,
-  };
+      currentSlide: 0,
+
+      formData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+      },
+    };
+  },
+  validations: {
+    formData: {
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      country: { required },
+      phone: { required },
+      password: { required },
+      confirmPassword: { required, sameAsPassword: sameAs('password') },
+    },
   },
   methods: {
     openDropdown() {
-      // Toggle between dropdown and popup
       if (!this.isPopupOpen) {
         this.isDropdownOpen = !this.isDropdownOpen;
       }
     },
     showPopup() {
       this.isPopupOpen = true;
-      this.isDropdownOpen = false; // Close the dropdown when opening the popup
+      this.isDropdownOpen = false;
     },
     closePopup() {
       this.isPopupOpen = false;
     },
+
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+    scrollToRegister() {
+      const registerContainer = document.querySelector(".register-container");
+      registerContainer.scrollIntoView({ behavior: "smooth" });
+    },
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % 3;
+      this.showSlide();
+    },
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + 3) % 3;
+      this.showSlide();
+    },
+    showSlide() {
+      const slides = document.querySelectorAll('.slide');
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === this.currentSlide);
+      });
+    },
+
+    submitForm() {
+      this.$v.formData.$touch();
+      if (!this.$v.formData.$error) {
+        console.log('Form submitted:', this.formData);
+      }
+    },
+
+    async registerUser(userData) {
+      try {
+        const response = await axios.post('/api/register', userData);
+        console.log('User registered successfully:', response.data);
+      } catch (error) {
+        console.error('Registration failed:', error.response.data.error);
+      }
+    },
+
+    async loginUser(credentials) {
+      try {
+        const response = await axios.post('/api/login', credentials);
+        console.log('User logged in successfully:', response.data);
+        localStorage.setItem('accessToken', response.data.accessToken);
+      } catch (error) {
+        console.error('Login failed:', error.response.data.error);
+      }
+    }
   },
+
+  mounted() {
+    this.showSlide();
+},
 };
 </script>
 
@@ -245,7 +440,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-right: 25px; /* Adjust the spacing between countdown groups */
+      margin-right: 25px;
   }
 
   .countdowntime-container-p1 {
@@ -256,21 +451,7 @@ export default {
 
   .countdowntime-container-p2 {
       font-size: 9px;
-      text-align: center; /* Center the text below the countdown numbers */
-  }
-
-  .main-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .main-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
+      text-align: center;
   }
 
   .user-actions {
@@ -295,30 +476,35 @@ export default {
   .user-icon {
     position: relative;
     cursor: pointer;
-    width: 30px; /* Adjust the width as needed */
-    height: 30px; /* Adjust the height as needed */
+    width: 30px;
+    height: 30px;
   }
   
   .dropdown {
     right: 0;
+    background: rgb(43, 43, 43);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .dropdown button{
+    color: white;
+    background: rgb(43, 43, 43);
+    border: none;
+  }
+
+  .user-dropdown {
+    position: absolute;
+    top: 30px;
+    left: -10%;
     background: white;
     padding: 10px;
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-  }
-  
-  .user-dropdown {
-    position: absolute;
-    top: 30px; /* Adjust the value to control the distance between the user icon and the dropdown */
-    left: 0; /* Adjust the value to control the distance from the left side */
-    background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align dropdown items to the left */
   }
   
   .popup {
@@ -332,6 +518,32 @@ export default {
     z-index: 1000;
   }
 
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .close-btn:hover {
+    color: red;
+  }
+
+  .submit-login-button {
+    background-color: grey;
+    width: 100%;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .submit-login-button:hover {
+    background-color: #d76d17;
+  }
+
   .first-container {
     display: flex;
     justify-content: space-between;
@@ -343,6 +555,7 @@ export default {
 
   .logomark {
     max-width: 100%;
+    width: auto;
   }
 
   .left-content {
@@ -402,6 +615,7 @@ export default {
     color: #f68b1f;
     font-size: 30px;
     font-weight: 550;
+    font-family: 'ATRotisSemiSans-Light', sans-serif;
   }
 
   .second-container {
@@ -454,7 +668,7 @@ export default {
     border: 1px solid #f68b1f;
     padding: 10px;
     height: 260px;
-    width: 900px;
+    width: 920px;
   }
 
   .bordered-text {
@@ -538,11 +752,11 @@ export default {
     border: 1px solid #f68b1f;
     padding: 10px;
     height: 300px;
-    width: 900px;
+    width: 920px;
   }
 
   .fourth-container-bordered-text {
-    margin: -25px 50px;
+    margin: -25px 130px;
     color: white;
     font-size: 25px;
     float: right;
@@ -612,5 +826,376 @@ export default {
     justify-content: center;
     color: black;
     font-size: 20px;
+  }
+
+  .fifth-container {
+    background-image: url('@/assets/easy_step_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 50px;
+  }
+
+  .fifth-container-content-container {
+    margin: 0 15%;
+    margin-top: 45px;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .fifth-container-content-container p { 
+    margin: 0%;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    float: left;
+    font-size: 20px;
+    color: white;
+  }
+  
+  .fifth-container-step {
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  .fifth-container-first-step p,
+  .fifth-container-second-step p,
+  .fifth-container-third-step p {
+    margin-top: 70px;
+    margin-left: 25px;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  .fifth-container-first-step {
+    background-image: url('@/assets/Step01.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 200px;
+    color: white;
+    margin: 0 20px;
+  }
+
+  .fifth-container-second-step {
+    background-image: url('@/assets/Step02.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 200px;
+    color: white;
+    margin: 0 20px;
+  }
+  
+  .fifth-container-third-step {
+    background-image: url('@/assets/Step03.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 200px;
+    color: white;
+    margin: 0 20px;
+  }
+
+  .fifth-container-arrow {
+    color: #f68b1f;
+    font-size: 60px;
+    margin: 0 10px;
+  }
+
+  .register-container {
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0 19%;
+  }
+
+  .register-container h3{
+    color: #f68b1f;
+    font-family: 'ATRotisSemiSans-Light', sans-serif;
+  }
+
+  .registration-form {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    background-color: #204c9783;
+    color: white;
+  }
+
+  .registration-form input::placeholder {
+    color: rgba(255, 255, 255, 0.753);
+  }
+
+  .country-group {
+    display: flex;
+  }
+
+  .country-group input {
+    width: 90%;
+    margin-left: 1%;
+  }
+
+  .country-group select {
+    width: 10%;
+    margin-right: 1%;
+  }
+
+  .checkbox-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 5%;
+  }
+
+  .checkbox-group label {
+    width: 95%;
+    color: rgba(255, 255, 255, 0.466);
+    font-size: 14px;
+  }
+
+  .statement-group a, .checkbox-group a {
+    color: rgba(255, 255, 255, 0.619);
+    font-size: 14px;
+  }
+
+  .statement-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .statement-group label {
+    color: white;
+    font-size: 14px;
+  }
+
+  .statement-group a {
+    color: rgba(255, 255, 255, 0.785);
+    font-size: 14px;
+  }
+
+  .submit-register-button {
+    background-color: grey;
+    width: 96.5%;
+    color: white;
+    border: none;
+    margin-left: 16px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .submit-register-button:hover {
+    background-color: #d76d17;
+  }
+
+  .button-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  .signup-facebook-button {
+    width: 46%;
+    margin: auto;
+    padding: 7px;
+    color: white;
+    background: #284fab;
+    cursor: pointer;
+    border: none;
+    border-radius: 5%;
+  }
+
+  .signup-google-button {
+    width: 46%;
+    margin: auto;
+    padding: 7px;
+    color: white;
+    background: red;
+    cursor: pointer;
+    border: none;
+    border-radius: 5%;
+  }
+
+  .trading-guide-container h2 {
+    color: #f68b1f;
+    font-size: 30px;
+    font-weight: 550;
+    font-family: 'ATRotisSemiSans-Light', sans-serif;
+  }
+
+  .trading-guide-container {
+    margin: 0 15%;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    position: relative;
+  }
+
+  .slideshow-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+
+  .slide {
+    flex: 0 0 30%;
+    box-sizing: border-box;
+    margin: 0%;
+  }
+
+  .slide img {
+    width: 90%;
+    margin-left: 10px;
+  }
+
+  .slide p {
+    margin: -40px 30px;
+    padding: 5%;
+    width: 250px;
+    height: 10px;
+    color: white;
+    text-align: center;
+    background: rgba(245, 149, 31, 0.848);
+    position: relative;
+    margin-right: 20px;
+  }
+  
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10%;
+    background: rgba(139, 139, 139, 0.7);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }
+
+  .footer {
+    background-color: #242530f4;
+    color: white;
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .footer-content {
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .footer-content p {
+    font-family: 'ATRotisSemiSans-Light', sans-serif;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .download-platform-button {
+    background-color: #f68b1f;
+    color: white;
+    border: none;
+    width: 500px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .download-platform-button:hover {
+    background-color: #d76d17;
+  }
+
+  .app-store-button {
+    background-image: url('@/assets/app-store.png');
+    background-size: cover;
+    background-position: center;
+    width: 170px;
+    height: 50px;
+    color: white;
+    border-color: #b9e6f9;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 50px;
+  }
+
+  .play-store-button {
+    background-image: url('@/assets/google-play.png');
+    background-size: cover;
+    background-position: center;
+    width: 170px;
+    height: 50px;
+    margin-left: 50px;
+    color: white;
+    border-color: #b9e6f9;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .scroll-to-top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f68b1f;
+    margin-left: 50px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+
+  .scroll-to-top-button:hover {
+    background-color: #d76d17;
   }
 </style>
